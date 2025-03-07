@@ -6,7 +6,7 @@ const habitSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  title: {
+  name: {
     type: String,
     required: true,
     trim: true
@@ -21,9 +21,7 @@ const habitSchema = new mongoose.Schema({
     enum: ['daily', 'weekly', 'monthly']
   },
   targetDays: [{
-    type: Number,
-    min: 0,
-    max: 6
+    type: String
   }],
   startDate: {
     type: Date,

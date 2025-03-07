@@ -3,7 +3,7 @@ import { FaCheck, FaTimes, FaEdit, FaTrash } from 'react-icons/fa';
 
 const HabitList = ({ habits, onToggle, onEdit, onDelete }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
       {habits.map((habit) => (
         <div
           key={habit.id}
@@ -32,18 +32,24 @@ const HabitList = ({ habits, onToggle, onEdit, onDelete }) => {
                 <FaEdit />
               </button>
               <button
-                onClick={() => onDelete(habit.id)}
+                onClick={() => onDelete(habit._id)}
                 className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-opacity-80 transition-colors"
               >
                 <FaTrash />
               </button>
             </div>
           </div>
-          <div className="text-sm text-gray-500">
-            <span className="font-medium">Frequency:</span> {habit.frequency}
-            <span className="mx-2">•</span>
-            <span className="font-medium">Target:</span> {habit.target} times
-          </div>
+          <div className=" flex flex-col text-sm text-gray-500">
+            <div className='flex'>
+            <span className="font-medium">Frequency: </span><strong className='mx-1'>{habit.frequency}</strong>
+            </div>
+            <div className='flex'>
+            <span className="font-medium">Target:</span>
+            <div className='flex flex-wrap'>
+            {habit.targetDays && habit.targetDays.map((day, index)=> (
+                <p className='mx-0.5' key={index}>{day}</p>
+            ))}</div></div>
+           </div>
           <div className="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
             <div
               className="h-full bg-indigo-600 transition-all duration-300"

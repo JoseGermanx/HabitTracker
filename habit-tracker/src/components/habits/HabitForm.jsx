@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { habitsService } from '../../services/api';
 
 const HabitForm = ({ onSubmit, initialData = null }) => {
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     frequency: 'daily',
-    target: 1
+    targetDays: []
   });
 
   useEffect(() => {
@@ -18,22 +19,49 @@ const HabitForm = ({ onSubmit, initialData = null }) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
       ...prevState,
-      [name]: name === 'target' ? parseInt(value, 10) : value
+      [name]: value
     }));
+  };
+
+  const handleDayChange = (dayValue) => {
+    setFormData(prevState => {
+      const currentDays = prevState.targetDays || [];
+      const updatedDays = currentDays.includes(dayValue)
+        ? currentDays.filter(day => day !== dayValue)
+        : [...currentDays, dayValue].sort((a, b) => a - b);
+
+      return {
+        ...prevState,
+        targetDays: updatedDays
+      };
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    habitsService.create(formData).then(
+      () => alert("Habit submit.😻")
+    );
     onSubmit(formData);
     if (!initialData) {
       setFormData({
         name: '',
         description: '',
         frequency: 'daily',
-        target: 1
+        targetDays: []
       });
     }
   };
+
+  const daysOfWeek = [
+    { value: 'Lunes', label: 'Lunes' },
+    { value: 'Martes', label: 'Martes' },
+    { value: 'Miércoles', label: 'Miércoles' },
+    { value: 'Jueves', label: 'Jueves' },
+    { value: 'Viernes', label: 'Viernes' },
+    { value: 'Sábado', label: 'Sábado' },
+    { value: 'Domingo', label: 'Domingo' }
+  ];
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-lg mx-auto">
@@ -86,19 +114,51 @@ const HabitForm = ({ onSubmit, initialData = null }) => {
       </div>
 
       <div>
-        <label htmlFor="target" className="block text-sm font-medium text-gray-700">
-          Target (times)
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Days of the Week
         </label>
-        <input
-          type="number"
-          id="target"
-          name="target"
-          value={formData.target}
-          onChange={handleChange}
-          min="1"
-          required
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        />
+        <div className="mb-4">
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="select-all-days"
+              checked={formData.targetDays.length === daysOfWeek.length}
+              onChange={() => {
+                const allDayValues = daysOfWeek.map(day => day.value);
+                setFormData(prevState => ({
+                  ...prevState,
+                  targetDays: prevState.targetDays.length === daysOfWeek.length ? [] : allDayValues
+                }));
+              }}
+              className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+            />
+            <label
+              htmlFor="select-all-days"
+              className="ml-2 block text-sm text-gray-900 font-medium"
+            >
+              Select All Days
+            </label>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
+          {daysOfWeek.map(day => (
+            <div key={day.value} className="flex items-center">
+              <input
+                type="checkbox"
+                id={`day-${day.value}`}
+                checked={formData.targetDays.includes(day.value)}
+                onChange={() => handleDayChange(day.value)}
+                className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+              />
+              <label
+                htmlFor={`day-${day.value}`}
+                className="ml-2 block text-sm text-gray-900"
+              >
+                {day.label}
+              </label>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div>
