@@ -89,7 +89,9 @@ const Login = ({ onLogin }) => {
         </form>
         <div>
           <h3>Don´t have a acount?</h3>
-          <Link to={"/register"}>Register a acount</Link>
+          <button
+            className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+          ><Link to={"/register"}>Register a acount</Link></button>
         </div>
       </div>
     </div>
