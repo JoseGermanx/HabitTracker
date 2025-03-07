@@ -30,8 +30,9 @@ const Register = ({ onRegister }) => {
       return;
     }
 
+
     try {
-      await authService.register(formData.email, formData.password);
+      await authService.register(formData.username, formData.email, formData.password);
       await authService.login(formData.email, formData.password);
       onRegister();
       navigate('/dashboard');
