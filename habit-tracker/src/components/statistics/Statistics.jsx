@@ -44,7 +44,7 @@ const Statistics = ({ habits }) => {
           <h3 className="text-lg font-medium text-gray-700 mb-4">Habit Breakdown</h3>
           <div className="space-y-4">
             {habits.map(habit => (
-              <div key={habit.id} className="flex items-center justify-between">
+              <div key={habit._id} className="flex items-center justify-between">
                 <span className="text-gray-600">{habit.name}</span>
                 <span className="text-indigo-600 font-medium">
                   {((habit.progress / habit.target) * 100).toFixed(1)}%

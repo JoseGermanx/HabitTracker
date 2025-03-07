@@ -6,7 +6,7 @@ const HabitList = ({ habits, onToggle, onEdit, onDelete }) => {
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
       {habits.map((habit) => (
         <div
-          key={habit.id}
+          key={habit._id}
           className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
         >
           <div className="flex justify-between items-start mb-4">
@@ -16,7 +16,7 @@ const HabitList = ({ habits, onToggle, onEdit, onDelete }) => {
             </div>
             <div className="flex space-x-2">
               <button
-                onClick={() => onToggle(habit.id)}
+                onClick={() => onToggle(habit._id)}
                 className={`p-2 rounded-full ${
                   habit.completed
                     ? 'bg-green-100 text-green-600'

@@ -67,7 +67,7 @@ const HabitForm = ({ onSubmit, initialData = null }) => {
     <form onSubmit={handleSubmit} className="space-y-6 max-w-lg mx-auto">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-          Habit Name
+          New Habit
         </label>
         <input
           type="text"
@@ -77,7 +77,7 @@ const HabitForm = ({ onSubmit, initialData = null }) => {
           onChange={handleChange}
           required
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-          placeholder="Enter habit name"
+          placeholder="Enter habit"
         />
       </div>
 

@@ -26,10 +26,10 @@ const Dashboard = () => {
     setShowForm(false);
   };
 
-  const updateHabitProgress = (habitId, progress) => {
-    setHabits(habits.map(habit =>
-      habit.id === habitId ? { ...habit, progress } : habit
-    ));
+  const updateHabitProgress = (habitId) => {
+   habitsService.toggleComplete(habitId).then(()=> {
+    alert("Bien hecho")
+   })
   };
 
   const deleteHabit = (habitId) => {
@@ -69,7 +69,7 @@ useEffect(() => {
           <div className="bg-white/50 backdrop-blur-sm p-6 rounded-xl shadow-lg transition-all duration-300 hover:shadow-xl hover:bg-white/60">
             <HabitList
               habits={habits}
-              onUpdateProgress={updateHabitProgress}
+              onToggle={updateHabitProgress}
               onDelete={deleteHabit}
             />
           </div>

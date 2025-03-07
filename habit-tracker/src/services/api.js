@@ -60,7 +60,7 @@ export const habitsService = {
     return response.data;
   },
   toggleComplete: async (id) => {
-    const response = await api.post(`/habits/${id}/toggle`);
+    const response = await api.post(`/habits/${id}/progress`);
     return response.data;
   }
 };
