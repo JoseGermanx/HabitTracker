@@ -26,8 +26,8 @@ const Dashboard = () => {
     setShowForm(false);
   };
 
-  const updateHabitProgress = (habitId) => {
-   habitsService.toggleComplete(habitId).then(()=> {
+  const updateHabitProgress = (habitId, body) => {
+   habitsService.toggleComplete(habitId, body).then(()=> {
     alert("Bien hecho")
    })
   };

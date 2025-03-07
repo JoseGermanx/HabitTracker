@@ -59,8 +59,8 @@ export const habitsService = {
     const response = await api.delete(`/habits/${id}`);
     return response.data;
   },
-  toggleComplete: async (id) => {
-    const response = await api.post(`/habits/${id}/progress`);
+  toggleComplete: async (id, body) => {
+    const response = await api.post(`/habits/${id}/progress`, body);
     return response.data;
   }
 };
