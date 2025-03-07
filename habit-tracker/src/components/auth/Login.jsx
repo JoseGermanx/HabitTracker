@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../../services/api';
 
 const Login = ({ onLogin }) => {
@@ -87,6 +87,10 @@ const Login = ({ onLogin }) => {
             </button>
           </div>
         </form>
+        <div>
+          <h3>Don´t have a acount?</h3>
+          <Link to={"/register"}>Register a acount</Link>
+        </div>
       </div>
     </div>
   );
